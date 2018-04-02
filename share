@@ -1,0 +1,65 @@
+
+var countries  = ['Moldova','Russia','Romania','Great Britain'];
+var departures = ['2018-01-01','2018-01-02','2018-06-03','2018-06-04'];
+var arrivals   = ['2018-01-02','2018-01-03','2018-06-04','2018-06-05'];
+
+function getCountriesOptions(){
+  var html = [];
+  for(var i = 0; i<countries.length; i++){
+    html.push( $('<option>').html( countries[i] )  );
+  }
+  return html;
+}
+function getDeparturesOptions(){
+  var html = [];
+  var d = new Date();
+
+  for(var i = 0; i<departures.length; i++){
+    var dd = new Date(departures[i]);
+    if( dd < d )
+      var disabled = 'disabled';
+    else
+      var disabled = '';
+    html.push( $('<option '+disabled+'>').html( departures[i] )  );
+  }
+  return html;
+}
+function getArrivalsOptions(){
+  var html = [];
+  var d = new Date();
+
+  for(var i = 0; i<arrivals.length; i++){
+    var dd = new Date(arrivals[i]);
+    if( dd < d )
+      var disabled = 'disabled';
+    else
+      var disabled = '';
+    html.push( $('<option '+disabled+'>').html( arrivals[i] )  );
+  }
+  return html;
+}
+function firstStepForm(){
+  var html =
+  [
+    $('<h2>').html('Choose Destination'),
+    $('<hr>'),
+    $('<select>').append(
+      $('<option>').html('-- Select a Country --')
+    ).append(  getCountriesOptions()  ),
+    $('<h4>').html('Choose Departure Date'),
+    $('<select>').append(
+      $('<option>').html('-- Departure --')
+    ).append(  getDeparturesOptions()  ),
+    $('<h4>').html('Choose Arrival Date'),
+    $('<select>').append(
+      $('<option>').html('-- Arrival --')
+    ).append(  getArrivalsOptions()  ),
+    $('<hr>'),
+    $('<button>').html('NEXT'),
+
+  ];
+  return html;
+}
+
+
+$('#form').append( firstStepForm() );
